@@ -1,17 +1,15 @@
 # Name of the project
-PROJECT_NAME = Calculator
+PROJECT_NAME = Tyre pressure monitor
 
 # Output directory
-BUILD = build
+BUILD:
+	qemu-system-gnuarmeclipse.exe -M STM32F4-Discovery -image Debug/WiperControlSystem.elf
 
 # All source code files
 SRC = project_main.c\
-src/calculator_operations.c
+src/main.c
 
 # All test source files
-TEST_SRC = src/calculator_operations.c\
-test/test_calculator_operations.c\
-unity/unity.c\
 
 TEST_OUTPUT = $(BUILD)/Test_$(PROJECT_NAME).out
 
@@ -66,7 +64,7 @@ sanitize_check:
 coverage:$(TEST_SRC)
 	gcc -fprofile-arcs -ftest-coverage $(TEST_SRC) $(INC) -o $(TEST_OUTPUT) $(INCLUDE_LIBS)
 	./$(TEST_OUTPUT)
-	gcov -a calculator_operations.c
+	gcov -a main.c
 
 # Remove all the built files, invoke by `make clean`
 clean:
